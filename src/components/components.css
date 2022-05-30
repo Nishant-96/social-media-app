@@ -1,0 +1,7 @@
+.sidenav-box {
+  @apply flex items-center cursor-pointer gap-2 px-4 py-2 rounded-full hover:bg-slate-200;
+}
+
+.sidenav-box > p {
+  @apply text-lg;
+}
