@@ -5,3 +5,7 @@
 .sidenav-box > p {
   @apply text-lg;
 }
+
+.sidebar-btn {
+  @apply bg-sky-600 text-slate-50 flex justify-center items-center cursor-pointer px-4 rounded-md my-1 border-2 border-solid border-sky-600 transition-all  duration-300 hover:bg-transparent hover:text-sky-600;
+}
