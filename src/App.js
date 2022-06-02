@@ -2,20 +2,13 @@ import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import { BottomNav, Navbar } from "./components";
 import { Sidebar } from "./components/sidebar";
-import {
-  Bookmarks,
-  Explore,
-  Home,
-  Login,
-  PageNotFound,
-  Profile,
-  Signup,
-} from "./pages";
+import { Bookmarks, Explore, Home, PageNotFound, Profile } from "./pages";
 
 function App() {
   return (
     <div className="flex justify-center md:max-w-[1280px] md:mx-auto">
       <Navbar />
+      <BottomNav />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/explore" element={<Explore />} />
