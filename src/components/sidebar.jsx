@@ -5,7 +5,7 @@ import SideProfileBar from "./side-profile-bar";
 import SearchIcon from "@mui/icons-material/Search";
 export function Sidebar() {
   return (
-    <div className="flex flex-col gap-2 p-4 ">
+    <div className="hidden sidebarMedia:flex flex-col gap-4 p-4 w-[20rem] sticky h-screen top-0 bottom-0">
       <div className="flex items-center gap-1 border-2 rounded-md p-2">
         <SearchIcon />
         <input
@@ -15,16 +15,7 @@ export function Sidebar() {
         />
       </div>
 
-      <div className="flex flex-col gap-4 rounded shadow-xl p-4">
-        <h3 className="text-lg font-semibold text-center">Sort By</h3>
-        <div className="sidebar-btn py-1 mx-4">Trending</div>
-        <select className="sidebar-btn py-1 mx-4" name="sorting" id="sort">
-          <option value="latest">Latest Posts</option>
-          <option value="oldest">Oldest Posts</option>
-        </select>
-      </div>
-
-      <div className="flex flex-col gap-4 rounded shadow-xl p-4">
+      <div className="flex flex-col gap-4 rounded shadow-[0px_0px_2px_#78909c] p-4">
         <h3 className="text-lg font-semibold text-center">Who To Follow</h3>
         <SideProfileBar />
         <SideProfileBar />

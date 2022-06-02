@@ -10,8 +10,8 @@ function SideProfileBar() {
       />
 
       <div className="flex flex-col ">
-        <p>Chris Gayle</p>
-        <p>@chris11</p>
+        <p className="font-semibold">Chris Gayle</p>
+        <p className="text-slate-500">@chris11</p>
       </div>
 
       <button className="sidebar-btn">Follow</button>
