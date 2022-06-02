@@ -8,7 +8,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import NavProfileBar from "./nav-profile-bar";
 export function Navbar() {
   return (
-    <div className="flex flex-col justify-between p-4 ">
+    <div className="hidden md:flex flex-col justify-between p-4 sticky h-screen w-[20rem] bg-white inset-y-0 ">
       <div className="flex flex-col gap-4 items-start">
         <div className="w-20">
           <img
