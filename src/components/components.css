@@ -9,3 +9,7 @@
 .sidebar-btn {
   @apply bg-sky-600 text-slate-50 flex justify-center items-center cursor-pointer px-4 rounded-md my-1 border-2 border-solid border-sky-600 transition-all  duration-300 hover:bg-transparent hover:text-sky-600;
 }
+
+.home-sort-btn {
+  @apply bg-sky-600 text-slate-50 flex justify-center items-center cursor-pointer rounded-md  border-2 border-solid border-sky-600 transition-all  duration-300 hover:bg-transparent hover:text-sky-600 gap-4 items-center py-1 px-4;
+}
