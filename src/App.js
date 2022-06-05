@@ -1,22 +1,37 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import { BottomNav, Navbar } from "./components";
-import { Sidebar } from "./components/sidebar";
-import { Bookmarks, Explore, Home, PageNotFound, Profile } from "./pages";
+import { AppWrapper, RequireAuth } from "./components";
+
+import {
+  Bookmarks,
+  Explore,
+  Home,
+  Login,
+  PageNotFound,
+  Profile,
+  Signup,
+} from "./pages";
 
 function App() {
   return (
     <div className="flex justify-center md:max-w-[1280px] md:mx-auto">
-      <Navbar />
-      <BottomNav />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/explore" element={<Explore />} />
-        <Route path="/bookmark" element={<Bookmarks />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
         <Route path="*" element={<PageNotFound />} />
+        <Route
+          element={
+            <RequireAuth>
+              <AppWrapper />
+            </RequireAuth>
+          }
+        >
+          <Route path="/" element={<Home />} />
+          <Route path="/explore" element={<Explore />} />
+          <Route path="/bookmark" element={<Bookmarks />} />
+          <Route path="/profile" element={<Profile />} />
+        </Route>
       </Routes>
-      <Sidebar />
     </div>
   );
 }
