@@ -1,7 +1,12 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Post } from "../components";
 
+import { logoutHandler } from "../store/features/auth-slice";
+
 export function Profile() {
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
   return (
     <div className="w-[600px] p-4">
       <div className="flex flex-col shadow-[0px_0px_2px_#78909c] gap-4">
@@ -16,17 +21,22 @@ export function Profile() {
               <div className=" font-semibold px-4 py-2 bg-transparent text-black flex justify-center cursor-pointer rounded-full border border-solid border-slate-400 transition-all  duration-300 hover:bg-slate-200">
                 Edit Profile
               </div>
-              <div className="font-semibold px-4 py-2 bg-red-500 text-white  justify-center cursor-pointer rounded-full border border-solid border-slate-400 flex md:hidden">
+              <div
+                className="font-semibold px-4 py-2 bg-red-500 text-white  justify-center cursor-pointer rounded-full border border-solid border-slate-400 flex md:hidden"
+                onClick={() => dispatch(logoutHandler())}
+              >
                 Logout
               </div>
             </div>
           </div>
           <div className="flex flex-col gap-1">
             <div>
-              <p className="font-semibold">Chris Gayle</p>
-              <p className="text-slate-500">@chris11</p>
+              <p className="font-semibold">{`${user.firstName} ${user.lastName}`}</p>
+              <p className="text-slate-500">{`@${
+                user.username.split("@")[0]
+              }`}</p>
             </div>
-            <div>I'm a potato.</div>
+            <div>{user.bio}</div>
             <div className="flex gap-4">
               <div className="flex gap-1">
                 <p className="font-semibold">10</p>
