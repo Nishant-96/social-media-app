@@ -53,7 +53,14 @@ export function Profile() {
               }`}</p>
             </div>
             <div>{loggedInUser?.bio}</div>
-            <div>{loggedInUser?.portfolio}</div>
+            <a
+              href={loggedInUser?.portfolio}
+              target="_blank"
+              rel="noreferrer"
+              className="hover:underline"
+            >
+              {loggedInUser?.portfolio}
+            </a>
             <div className="flex gap-4">
               <div className="flex gap-1">
                 <p className="font-semibold">10</p>

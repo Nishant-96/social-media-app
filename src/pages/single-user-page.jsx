@@ -71,6 +71,14 @@ export function SingleUserPage() {
               }`}</p>
             </div>
             <div>{singleUser?.bio}</div>
+            <a
+              href={loggedInUser?.portfolio}
+              target="_blank"
+              rel="noreferrer"
+              className="hover:underline"
+            >
+              {singleUser?.portfolio}
+            </a>
             <div className="flex gap-4">
               <div className="flex gap-1">
                 <p className="font-semibold">10</p>
