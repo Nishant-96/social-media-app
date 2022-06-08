@@ -10,7 +10,7 @@ export function Post() {
       <div className=" min-w-[48px]">
         <img
           className="h-12 w-12 rounded-full object-cover"
-          src="/assets/demo.jpg"
+          src="/assets/demo.png"
           alt="avatar"
         />
       </div>

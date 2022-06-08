@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
+import Mockman from "mockman-js";
 import { AppWrapper, RequireAuth } from "./components";
 
 import {
@@ -10,6 +11,7 @@ import {
   PageNotFound,
   Profile,
   Signup,
+  SingleUserPage,
 } from "./pages";
 
 function App() {
@@ -19,6 +21,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="*" element={<PageNotFound />} />
+        <Route path="/mockman" element={<Mockman />} />
         <Route
           element={
             <RequireAuth>
@@ -30,6 +33,7 @@ function App() {
           <Route path="/explore" element={<Explore />} />
           <Route path="/bookmark" element={<Bookmarks />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="user/:userId" element={<SingleUserPage />} />
         </Route>
       </Routes>
     </div>

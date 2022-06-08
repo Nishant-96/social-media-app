@@ -52,9 +52,6 @@ export function makeServer({ environment = "development" } = {}) {
       users.forEach((item) =>
         server.create("user", {
           ...item,
-          followers: [],
-          following: [],
-          bookmarks: [],
         })
       );
       posts.forEach((item) => server.create("post", { ...item }));
@@ -115,6 +112,12 @@ export function makeServer({ environment = "development" } = {}) {
       this.post(
         "/users/unfollow/:followUserId/",
         unfollowUserHandler.bind(this)
+      );
+
+      this.passthrough();
+      this.passthrough(
+        "https://api.cloudinary.com/v1_1/dnkpd7qq8/image/upload",
+        ["post"]
       );
     },
   });

@@ -1,13 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { EditProfile, FollowListModal, Post } from "../components";
+import { useParams } from "react-router-dom";
 
-import { logoutHandler } from "../store/features/auth-slice";
+import { FollowListModal, Post } from "../components";
+import {
+  followUserHandler,
+  getSingleUserHandler,
+  unfollowUserHandler,
+} from "../store/features/users-slice";
 
-export function Profile() {
+export function SingleUserPage() {
+  const { userId } = useParams();
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.auth);
-  const { users } = useSelector((state) => state.users);
+  const { singleUser, users, getUsersApiFlag } = useSelector(
+    (state) => state.users
+  );
+  const { user, token } = useSelector((state) => state.auth);
   const [showModal, setShowModal] = useState({
     edit: false,
     followers: false,
@@ -18,6 +26,24 @@ export function Profile() {
     (curr) => curr.username === user.username
   )[0];
 
+  const followingStatus = loggedInUser.following.some(
+    (curr) => curr.username === singleUser.username
+  );
+
+  const clickHandler = () => {
+    if (followingStatus) {
+      token &&
+        dispatch(unfollowUserHandler({ userId: singleUser._id, token: token }));
+    } else {
+      token &&
+        dispatch(followUserHandler({ userId: singleUser._id, token: token }));
+    }
+  };
+
+  useEffect(() => {
+    dispatch(getSingleUserHandler(userId));
+  }, [userId, getUsersApiFlag]);
+
   return (
     <div className="w-[600px] p-4">
       <div className="flex flex-col shadow-[0px_0px_2px_#78909c] gap-4">
@@ -25,41 +51,35 @@ export function Profile() {
           <div className="flex justify-between items-center">
             <img
               className="h-24 w-24 rounded-full object-cover"
-              src={loggedInUser?.avatarURL || `/assets/demo.png`}
+              src={singleUser?.avatarURL || `/assets/demo.png`}
               alt="avatar"
             />
             <div className="flex gap-4 flex-wrap">
               <div
                 className=" font-semibold px-4 py-2 bg-transparent text-black flex justify-center cursor-pointer rounded-full border border-solid border-slate-400 transition-all  duration-300 hover:bg-slate-200"
-                onClick={() =>
-                  setShowModal((prev) => ({ ...prev, edit: true }))
-                }
+                onClick={() => clickHandler()}
               >
-                Edit Profile
-              </div>
-              <div
-                className="font-semibold px-4 py-2 bg-red-500 text-white  justify-center cursor-pointer rounded-full border border-solid border-slate-400 flex md:hidden"
-                onClick={() => dispatch(logoutHandler())}
-              >
-                Logout
+                {followingStatus ? "Unfollow" : "Follow"}
               </div>
             </div>
           </div>
           <div className="flex flex-col gap-1">
             <div>
-              <p className="font-semibold">{`${user.firstName} ${user.lastName}`}</p>
+              <p className="font-semibold">
+                {`${singleUser?.firstName} ${singleUser?.lastName}`}
+              </p>
               <p className="text-slate-500">{`@${
-                user.username.split("@")[0]
+                singleUser?.username?.split("@")?.[0]
               }`}</p>
             </div>
-            <div>{loggedInUser?.bio}</div>
+            <div>{singleUser?.bio}</div>
             <a
               href={loggedInUser?.portfolio}
               target="_blank"
               rel="noreferrer"
               className="hover:underline"
             >
-              {loggedInUser?.portfolio}
+              {singleUser?.portfolio}
             </a>
             <div className="flex gap-4">
               <div className="flex gap-1">
@@ -67,25 +87,21 @@ export function Profile() {
                 <p className="text-slate-500">Posts</p>
               </div>
               <div
-                className="flex gap-1 cursor-pointer"
+                className="flex gap-1  cursor-pointer"
                 onClick={() =>
                   setShowModal((prev) => ({ ...prev, following: true }))
                 }
               >
-                <p className="font-semibold">
-                  {loggedInUser?.following?.length}
-                </p>
+                <p className="font-semibold">{singleUser?.following?.length}</p>
                 <p className="text-slate-500">Following</p>
               </div>
               <div
-                className="flex gap-1 cursor-pointer"
+                className="flex gap-1  cursor-pointer"
                 onClick={() =>
                   setShowModal((prev) => ({ ...prev, followers: true }))
                 }
               >
-                <p className="font-semibold">
-                  {loggedInUser?.followers?.length}
-                </p>
+                <p className="font-semibold">{singleUser?.followers?.length}</p>
                 <p className="text-slate-500">Followers</p>
               </div>
             </div>
@@ -99,13 +115,12 @@ export function Profile() {
           <Post />
           <Post />
         </div>
+        <FollowListModal
+          show={showModal}
+          setShow={setShowModal}
+          userProfile={singleUser}
+        />
       </div>
-      <FollowListModal
-        show={showModal}
-        setShow={setShowModal}
-        userProfile={loggedInUser}
-      />
-      <EditProfile show={showModal} setShow={setShowModal} />
     </div>
   );
 }
