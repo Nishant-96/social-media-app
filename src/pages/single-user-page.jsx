@@ -12,7 +12,9 @@ import {
 export function SingleUserPage() {
   const { userId } = useParams();
   const dispatch = useDispatch();
-  const { singleUser, users } = useSelector((state) => state.users);
+  const { singleUser, users, getUsersApiFlag } = useSelector(
+    (state) => state.users
+  );
   const { user, token } = useSelector((state) => state.auth);
   const [showModal, setShowModal] = useState({
     edit: false,
@@ -40,7 +42,7 @@ export function SingleUserPage() {
 
   useEffect(() => {
     dispatch(getSingleUserHandler(userId));
-  }, [userId]);
+  }, [userId, getUsersApiFlag]);
 
   return (
     <div className="w-[600px] p-4">
