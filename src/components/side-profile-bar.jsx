@@ -1,20 +1,40 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { followUserHandler } from "../store/features/users-slice";
 
-function SideProfileBar() {
+function SideProfileBar({ currUser }) {
+  const { token } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   return (
-    <div className="flex gap-4 cursor-pointer py-1">
+    <div
+      className="flex gap-4 cursor-pointer py-1"
+      onClick={() => navigate(`user/${currUser._id}`)}
+    >
       <img
         className="h-12 w-12 rounded-full object-cover"
-        src="/assets/demo.jpg"
+        src={currUser?.avatarURL}
         alt="avatar"
       />
 
-      <div className="flex flex-col ">
-        <p className="font-semibold">Chris Gayle</p>
-        <p className="text-slate-500">@chris11</p>
+      <div className="flex flex-col w-[5.8rem] ">
+        <p className="font-semibold truncate">{`${currUser.firstName} ${currUser.lastName}`}</p>
+        <p className="text-slate-500 truncate">{`@${
+          currUser.username.split("@")[0]
+        }`}</p>
       </div>
 
-      <button className="sidebar-btn">Follow</button>
+      <button
+        className="sidebar-btn"
+        onClick={(event) => {
+          event.stopPropagation();
+          token &&
+            dispatch(followUserHandler({ userId: currUser._id, token: token }));
+        }}
+      >
+        Follow
+      </button>
     </div>
   );
 }

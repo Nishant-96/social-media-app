@@ -5,7 +5,13 @@ import ImageIcon from "@mui/icons-material/Image";
 import GifBoxIcon from "@mui/icons-material/GifBox";
 import WhatshotIcon from "@mui/icons-material/Whatshot";
 import { Post } from "../components";
+import { useSelector } from "react-redux";
 export function Home() {
+  const { users } = useSelector((state) => state.users);
+  const { user } = useSelector((state) => state.auth);
+  const loggedInUser = users.filter(
+    (curr) => curr.username === user.username
+  )[0];
   return (
     <div className="w-[600px] flex flex-col gap-4 p-4 ">
       {/* Post Component */}
@@ -13,7 +19,7 @@ export function Home() {
         <div className="flex gap-4">
           <img
             className="h-16 w-16 rounded-full object-cover"
-            src="/assets/demo.jpg"
+            src={loggedInUser?.avatarURL || `/assets/demo.png`}
             alt="avatar"
           />
           <textarea
