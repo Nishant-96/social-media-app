@@ -47,7 +47,10 @@ export function EditProfile({ show, setShow }) {
   return show.edit ? (
     <div
       className="fixed inset-0 flex justify-center items-center z-20 bg-[#00000070] p-2"
-      onClick={() => setShow((prev) => ({ ...prev, edit: false }))}
+      onClick={() => {
+        setShow((prev) => ({ ...prev, edit: false }));
+        setProfileDetails(loggedInUser);
+      }}
     >
       <div
         className="bg-white flex flex-col  rounded-md p-4 gap-4 max-w-md w-full"
@@ -56,13 +59,16 @@ export function EditProfile({ show, setShow }) {
         <div className="flex justify-between">
           <div className="text-2xl font-semibold">Edit Profile</div>
           <CloseIcon
-            onClick={() => setShow((prev) => ({ ...prev, edit: false }))}
+            onClick={() => {
+              setShow((prev) => ({ ...prev, edit: false }));
+              setProfileDetails(loggedInUser);
+            }}
           />
         </div>
         <div className="flex justify-center relative">
           <img
             className="h-20 w-20 rounded-full object-cover"
-            src={loggedInUser?.avatarURL || `/assets/demo.png`}
+            src={profileDetail?.avatarURL || `/assets/demo.png`}
             alt="avatar"
           />
           <label className="absolute bottom-0 right-[38%]">
