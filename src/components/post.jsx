@@ -33,8 +33,8 @@ export function Post({ postDetail }) {
   );
 
   const bookmarkStatus = bookmarkPosts
-    .map((curr) => curr._id)
-    .includes(postDetail._id);
+    ?.map((curr) => curr._id)
+    ?.includes(postDetail._id);
 
   return (
     <div className="flex gap-4 shadow-[0px_0px_2px_#78909c] p-4">

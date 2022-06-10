@@ -85,7 +85,7 @@ export const getBookmarkPostsHandler = createAsyncThunk(
   async ({ token }) => {
     try {
       const response = await getBookmarkPostsService(token);
-      return response.data.bookmarks;
+      return response?.data?.bookmarks;
     } catch (error) {
       console.error(error);
     }

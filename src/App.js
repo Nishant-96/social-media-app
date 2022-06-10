@@ -28,7 +28,7 @@ function App() {
 
   useEffect(() => {
     dispatch(getAllpostsHandler());
-    dispatch(getBookmarkPostsHandler({ token: token }));
+    token && dispatch(getBookmarkPostsHandler({ token: token }));
   }, [postApiCallStatus]);
   return (
     <div className="flex justify-center md:max-w-[1280px] md:mx-auto">

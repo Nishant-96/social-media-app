@@ -24,9 +24,9 @@ export function Home() {
     (curr) => curr.username
   );
 
-  const homePostsArr = allPosts.filter(
+  const homePostsArr = allPosts?.filter(
     (currPost) =>
-      followingsNameArr.includes(currPost.username) ||
+      followingsNameArr?.includes(currPost.username) ||
       currPost?.username === loggedInUser?.username
   );
 
@@ -43,7 +43,7 @@ export function Home() {
 
   return (
     <div className="w-[600px] flex flex-col gap-4 p-4 ">
-      {/* Post Component */}
+    
       <div className="p-4 shadow-[0px_0px_2px_#78909c] flex flex-col gap-2">
         <div className="flex gap-4">
           <img
@@ -85,7 +85,7 @@ export function Home() {
         </div>
       </div>
 
-      {/* Sort Component */}
+     
       <div className="flex  justify-evenly rounded shadow-[0px_0px_2px_#78909c] py-2 flex-wrap gap-2">
         <div
           className="home-sort-btn"
@@ -105,7 +105,7 @@ export function Home() {
         </select>
       </div>
 
-      {/* Feed Component */}
+    
       <div>
         {allPostsArr.map((currPost) => (
           <Post key={currPost._id} postDetail={currPost} />
