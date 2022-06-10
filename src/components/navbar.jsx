@@ -7,9 +7,8 @@ import BookmarkIcon from "@mui/icons-material/Bookmark";
 import PersonIcon from "@mui/icons-material/Person";
 import NavProfileBar from "./nav-profile-bar";
 import { Link, NavLink } from "react-router-dom";
-import { CreatePostModal } from "./create-post-modal";
-export function Navbar() {
-  const [showModal, setShowModal] = useState(false);
+
+export function Navbar({ setShowModal }) {
   return (
     <div className="hidden md:flex flex-col justify-between p-4 sticky h-screen w-[20rem] bg-white inset-y-0 ">
       <div className="flex flex-col gap-4 items-start">
@@ -73,7 +72,6 @@ export function Navbar() {
         </div>
       </div>
       <NavProfileBar />
-      <CreatePostModal showNew={showModal} setShowNew={setShowModal} />
     </div>
   );
 }

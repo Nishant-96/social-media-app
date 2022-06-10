@@ -6,3 +6,4 @@ export { AppWrapper } from "./app-wrapper.jsx";
 export { RequireAuth } from "./require-auth.jsx";
 export { EditProfile } from "./edit-profile.jsx";
 export { FollowListModal } from "./follow-list-modal.jsx";
+export { CommentBar } from "./comment-bar.jsx";

@@ -1,15 +1,18 @@
-import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
   createPostService,
   deletePostService,
   editPostService,
   getAllPostsService,
   getBookmarkPostsService,
+  getUserPostByIdService,
   getUserPostsService,
   postAddBookmarkService,
+  postAddCommentService,
   postDislikeService,
   postLikeService,
   postRemoveBookmarkService,
+  postRemoveCommentService,
 } from "../../services";
 
 const initialState = {
@@ -18,6 +21,7 @@ const initialState = {
   singleUserPosts: [],
   postApiCallStatus: false,
   bookmarkPosts: [],
+  singlePost: {},
 };
 
 export const getAllpostsHandler = createAsyncThunk(
@@ -144,6 +148,42 @@ export const editPostHandler = createAsyncThunk(
   }
 );
 
+export const getPostByIdHandler = createAsyncThunk(
+  "postsDatabase/getPostByIdHandler",
+  async ({ postId }) => {
+    try {
+      const response = await getUserPostByIdService(postId);
+      if (response.status === 200) {
+        return response.data.post;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+);
+
+export const addCommentHandler = createAsyncThunk(
+  "postsDatabase/addCommentHandler",
+  async ({ postId, commentData, token }) => {
+    try {
+      const response = await postAddCommentService(postId, commentData, token);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+);
+
+export const removeCommentHandler = createAsyncThunk(
+  "postsDatabase/removeCommentHandler",
+  async ({ postId, commentId, token }) => {
+    try {
+      const response = await postRemoveCommentService(postId, commentId, token);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+);
+
 const postsDatabaseSlice = createSlice({
   name: "postsDatabase",
   initialState,
@@ -208,6 +248,21 @@ const postsDatabaseSlice = createSlice({
       state.postApiCallStatus = !state.postApiCallStatus;
     },
     [editPostHandler.rejected]: (action) => {
+      console.error(action.payload);
+    },
+    [getPostByIdHandler.fulfilled]: (state, action) => {
+      state.singlePost = action.payload;
+    },
+    [addCommentHandler.fulfilled]: (state) => {
+      state.postApiCallStatus = !state.postApiCallStatus;
+    },
+    [addCommentHandler.rejected]: (action) => {
+      console.error(action.payload);
+    },
+    [removeCommentHandler.fulfilled]: (state) => {
+      state.postApiCallStatus = !state.postApiCallStatus;
+    },
+    [removeCommentHandler.rejected]: (action) => {
       console.error(action.payload);
     },
   },

@@ -147,3 +147,53 @@ export const editPostService = async (postId, postData, token) => {
     console.error(error);
   }
 };
+
+export const getUserPostByIdService = async (postId) => {
+  try {
+    const response = await axios.get(`/api/posts/${postId}`);
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getCommentsService = async (postId) => {
+  try {
+    const response = await axios.get(`/api/comments/${postId}`);
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const postAddCommentService = async (postId, commentData, token) => {
+  try {
+    const response = await axios.post(
+      `/api/comments/add/${postId}`,
+      {
+        commentData,
+      },
+      {
+        headers: {
+          authorization: token,
+        },
+      }
+    );
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const postRemoveCommentService = async (postId, commentId, token) => {
+  try {
+    const response = axios.post(
+      `/api/comments/delete/${postId}/${commentId}`,
+      {},
+      { headers: { authorization: token } }
+    );
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
+};

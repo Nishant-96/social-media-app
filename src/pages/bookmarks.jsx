@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { useSelector } from "react-redux";
 import { Post } from "../components";
-import { getBookmarkPostsHandler } from "../store/features/post-slice";
 
 export function Bookmarks() {
   const { bookmarkPosts } = useSelector((state) => state.posts);

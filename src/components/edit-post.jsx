@@ -1,9 +1,17 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { deletePostHandler } from "../store/features/post-slice";
 import { CreatePostModal } from "./create-post-modal";
 
-export function EditPostModal({ show, postDetail, setShow }) {
+export function EditPostModal({
+  show,
+  postDetail,
+  setShow,
+  singlePostIdRoute,
+}) {
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
   const [editPostModal, setEditPostModal] = useState(false);
   const { token } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
@@ -22,6 +30,9 @@ export function EditPostModal({ show, postDetail, setShow }) {
         onClick={() => {
           dispatch(deletePostHandler({ postId: postDetail._id, token: token }));
           setShow(false);
+          if (pathname === `/post/${singlePostIdRoute}`) {
+            navigate("/");
+          }
         }}
       >
         Delete Post

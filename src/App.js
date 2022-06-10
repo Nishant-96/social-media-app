@@ -11,6 +11,7 @@ import {
   PageNotFound,
   Profile,
   Signup,
+  SinglePostPage,
   SingleUserPage,
 } from "./pages";
 import { useEffect } from "react";
@@ -48,6 +49,7 @@ function App() {
           <Route path="/bookmark" element={<Bookmarks />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="user/:userId" element={<SingleUserPage />} />
+          <Route path="post/:postId" element={<SinglePostPage />} />
         </Route>
       </Routes>
     </div>

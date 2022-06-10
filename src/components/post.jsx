@@ -101,7 +101,10 @@ export function Post({ postDetail }) {
             <div>{postDetail?.likes?.likeCount}</div>
           </div>
           <div className="flex gap-1 items-center">
-            <CommentIcon className="cursor-pointer text-slate-500" />
+            <CommentIcon
+              className="cursor-pointer text-slate-500"
+              onClick={() => navigate(`/post/${postDetail._id}`)}
+            />
             <div>{postDetail?.comments?.length}</div>
           </div>
           {!bookmarkStatus ? (
