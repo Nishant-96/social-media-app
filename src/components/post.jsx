@@ -69,7 +69,7 @@ export function Post({ postDetail }) {
           )}
           <EditPostModal
             show={showModal}
-            postId={postDetail._id}
+            postDetail={postDetail}
             setShow={setShowModal}
           />
         </div>

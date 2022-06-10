@@ -57,7 +57,7 @@ export const postLikeHandler = createAsyncThunk(
         return response.data;
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   }
 );
@@ -71,7 +71,7 @@ export const postDislikeHandler = createAsyncThunk(
         return response.data;
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   }
 );
@@ -114,7 +114,6 @@ export const createPostHandler = createAsyncThunk(
   async ({ postData, token }) => {
     try {
       const response = await createPostService(postData, token);
-      console.log(response);
     } catch (error) {
       console.error(error);
     }
@@ -138,7 +137,6 @@ export const editPostHandler = createAsyncThunk(
   async ({ postId, postData, token }) => {
     try {
       const response = await editPostService(postId, postData, token);
-      console.log("slice", response);
       return response.data;
     } catch (error) {
       console.error(error);

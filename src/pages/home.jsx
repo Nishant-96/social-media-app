@@ -30,8 +30,6 @@ export function Home() {
       currPost?.username === loggedInUser?.username
   );
 
-  console.log(allPosts);
-
   const allPostsArr = sortingFilter(homePostsArr, sortBy);
 
   const postClickHandler = () => {

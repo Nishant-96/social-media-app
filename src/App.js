@@ -13,8 +13,22 @@ import {
   Signup,
   SingleUserPage,
 } from "./pages";
+import { useEffect } from "react";
+import {
+  getAllpostsHandler,
+  getBookmarkPostsHandler,
+} from "./store/features/post-slice";
+import { useDispatch, useSelector } from "react-redux";
 
 function App() {
+  const { token } = useSelector((state) => state.auth);
+  const { postApiCallStatus } = useSelector((state) => state.posts);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getAllpostsHandler());
+    dispatch(getBookmarkPostsHandler({ token: token }));
+  }, [postApiCallStatus]);
   return (
     <div className="flex justify-center md:max-w-[1280px] md:mx-auto">
       <Routes>
