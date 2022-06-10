@@ -3,6 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import { FollowListModal, Post } from "../components";
+import { sortingFilter } from "../services";
+import { getUserPostsHandler } from "../store/features/post-slice";
+
 import {
   followUserHandler,
   getSingleUserHandler,
@@ -16,6 +19,9 @@ export function SingleUserPage() {
     (state) => state.users
   );
   const { user, token } = useSelector((state) => state.auth);
+  const { singleUserPosts, postApiCallStatus } = useSelector(
+    (state) => state.posts
+  );
   const [showModal, setShowModal] = useState({
     edit: false,
     followers: false,
@@ -26,7 +32,7 @@ export function SingleUserPage() {
     (curr) => curr.username === user.username
   )[0];
 
-  const followingStatus = loggedInUser.following.some(
+  const followingStatus = loggedInUser?.following.some(
     (curr) => curr.username === singleUser.username
   );
 
@@ -40,9 +46,15 @@ export function SingleUserPage() {
     }
   };
 
+  const singleUserPostsArr = sortingFilter(singleUserPosts, "latest");
+
   useEffect(() => {
     dispatch(getSingleUserHandler(userId));
   }, [userId, getUsersApiFlag]);
+
+  useEffect(() => {
+    dispatch(getUserPostsHandler({ username: singleUser.username }));
+  }, [userId, singleUser.username, postApiCallStatus]);
 
   return (
     <div className="w-[600px] p-4">
@@ -109,11 +121,15 @@ export function SingleUserPage() {
         </div>
         {/* feed component */}
         <div>
-          <Post />
-          <Post />
-          <Post />
-          <Post />
-          <Post />
+          {singleUserPostsArr?.length > 0 ? (
+            singleUserPostsArr?.map((currPost) => (
+              <Post key={currPost._id} postDetail={currPost} />
+            ))
+          ) : (
+            <div className="flex gap-4 shadow-[0px_0px_2px_#78909c] p-4 items-center justify-center h-[50vh]">
+              <div className="text-xl font-semibold">User Has No Posts</div>
+            </div>
+          )}
         </div>
         <FollowListModal
           show={showModal}

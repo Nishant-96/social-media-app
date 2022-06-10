@@ -11,10 +11,25 @@ import {
   PageNotFound,
   Profile,
   Signup,
+  SinglePostPage,
   SingleUserPage,
 } from "./pages";
+import { useEffect } from "react";
+import {
+  getAllpostsHandler,
+  getBookmarkPostsHandler,
+} from "./store/features/post-slice";
+import { useDispatch, useSelector } from "react-redux";
 
 function App() {
+  const { token } = useSelector((state) => state.auth);
+  const { postApiCallStatus } = useSelector((state) => state.posts);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getAllpostsHandler());
+    token && dispatch(getBookmarkPostsHandler({ token: token }));
+  }, [postApiCallStatus]);
   return (
     <div className="flex justify-center md:max-w-[1280px] md:mx-auto">
       <Routes>
@@ -34,6 +49,7 @@ function App() {
           <Route path="/bookmark" element={<Bookmarks />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="user/:userId" element={<SingleUserPage />} />
+          <Route path="post/:postId" element={<SinglePostPage />} />
         </Route>
       </Routes>
     </div>

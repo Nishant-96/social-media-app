@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import "./components.css";
 import ExploreIcon from "@mui/icons-material/Explore";
@@ -7,7 +7,8 @@ import BookmarkIcon from "@mui/icons-material/Bookmark";
 import PersonIcon from "@mui/icons-material/Person";
 import NavProfileBar from "./nav-profile-bar";
 import { Link, NavLink } from "react-router-dom";
-export function Navbar() {
+
+export function Navbar({ setShowModal }) {
   return (
     <div className="hidden md:flex flex-col justify-between p-4 sticky h-screen w-[20rem] bg-white inset-y-0 ">
       <div className="flex flex-col gap-4 items-start">
@@ -63,7 +64,10 @@ export function Navbar() {
           </NavLink>
         </nav>
 
-        <div className="w-full bg-sky-600 text-slate-50 flex justify-center cursor-pointer rounded-full py-2 border-2 border-solid border-sky-600 transition-all  duration-300 hover:bg-transparent hover:text-sky-600">
+        <div
+          className="w-full bg-sky-600 text-slate-50 flex justify-center cursor-pointer rounded-full py-2 border-2 border-solid border-sky-600 transition-all  duration-300 hover:bg-transparent hover:text-sky-600"
+          onClick={() => setShowModal(true)}
+        >
           Post
         </div>
       </div>

@@ -1,13 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { EditProfile, FollowListModal, Post } from "../components";
+import { sortingFilter } from "../services";
 
 import { logoutHandler } from "../store/features/auth-slice";
+import { getUserPostsHandler } from "../store/features/post-slice";
 
 export function Profile() {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
   const { users } = useSelector((state) => state.users);
+  const { singleUserPosts, postApiCallStatus } = useSelector(
+    (state) => state.posts
+  );
   const [showModal, setShowModal] = useState({
     edit: false,
     followers: false,
@@ -17,6 +22,12 @@ export function Profile() {
   const loggedInUser = users.filter(
     (curr) => curr.username === user.username
   )[0];
+
+  const profilePostsArr = sortingFilter(singleUserPosts, "latest");
+
+  useEffect(() => {
+    dispatch(getUserPostsHandler({ username: loggedInUser?.username }));
+  }, [loggedInUser, postApiCallStatus]);
 
   return (
     <div className="w-[600px] p-4">
@@ -93,11 +104,15 @@ export function Profile() {
         </div>
         {/* feed component */}
         <div>
-          <Post />
-          <Post />
-          <Post />
-          <Post />
-          <Post />
+          {profilePostsArr?.length > 0 ? (
+            profilePostsArr?.map((currPost) => (
+              <Post key={currPost._id} postDetail={currPost} />
+            ))
+          ) : (
+            <div className="flex gap-4 shadow-[0px_0px_2px_#78909c] p-4 items-center justify-center h-[50vh]">
+              <div className="text-xl font-semibold">Start Posting</div>
+            </div>
+          )}
         </div>
       </div>
       <FollowListModal
