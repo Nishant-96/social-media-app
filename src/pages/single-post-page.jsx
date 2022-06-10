@@ -166,17 +166,21 @@ export function SinglePostPage() {
         <button
           className="bg-sky-600 text-slate-50 flex ml-auto items-center cursor-pointer h-full px-2 rounded-md  border-2 border-solid border-sky-600"
           onClick={() => {
-            dispatch(
-              addCommentHandler({
-                postId: postId,
-                commentData: comment,
-                token: token,
-              })
-            );
-            setComment((prev) => ({
-              ...prev,
-              commentContent: "",
-            }));
+            if (comment.commentContent !== "") {
+              dispatch(
+                addCommentHandler({
+                  postId: postId,
+                  commentData: comment,
+                  token: token,
+                })
+              );
+              setComment((prev) => ({
+                ...prev,
+                commentContent: "",
+              }));
+            } else {
+              console.error("Content Empty");
+            }
           }}
         >
           Comment
