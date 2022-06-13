@@ -28,7 +28,7 @@ export function Sidebar() {
 
   return (
     <div className="hidden sidebarMedia:flex flex-col gap-4 p-4 w-[20rem] sticky h-screen top-0 bottom-0">
-      <div className="flex items-center gap-1 border-2 rounded-md p-2">
+      <div className="flex items-center gap-1 border-2 rounded-md p-2 hidden">
         <SearchIcon />
         <input
           type="Search"

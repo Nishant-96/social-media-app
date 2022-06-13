@@ -43,7 +43,6 @@ export function Home() {
 
   return (
     <div className="w-[600px] flex flex-col gap-4 p-4 ">
-    
       <div className="p-4 shadow-[0px_0px_2px_#78909c] flex flex-col gap-2">
         <div className="flex gap-4">
           <img
@@ -63,7 +62,7 @@ export function Home() {
         </div>
         <div className="flex justify-between items-center px-1">
           <div className="flex gap-2 items-center">
-            <label>
+            <label className="hidden">
               <ImageIcon className="cursor-pointer text-sky-600" />
               <input
                 type="file"
@@ -71,7 +70,7 @@ export function Home() {
                 className="hidden"
               />
             </label>
-            <label>
+            <label className="hidden">
               <GifBoxIcon className="cursor-pointer text-sky-600" />
               <input type="file" accept="image/gif" className="hidden" />
             </label>
@@ -85,7 +84,6 @@ export function Home() {
         </div>
       </div>
 
-     
       <div className="flex  justify-evenly rounded shadow-[0px_0px_2px_#78909c] py-2 flex-wrap gap-2">
         <div
           className="home-sort-btn"
@@ -105,7 +103,6 @@ export function Home() {
         </select>
       </div>
 
-    
       <div>
         {allPostsArr.map((currPost) => (
           <Post key={currPost._id} postDetail={currPost} />
