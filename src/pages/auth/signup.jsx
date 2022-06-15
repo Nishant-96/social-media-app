@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import { signupHandler } from "../../store/features/auth-slice";
 
@@ -34,10 +35,13 @@ export function Signup() {
       username === "" ||
       !/^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/.test(username)
     ) {
-      return { type: false, message: "Invalid User Name" };
+      return { type: false, message: "Invalid User Name Should Contain @" };
     }
-    if (password === "") {
-      return { type: false, message: "Invalid Password" };
+    if (password === "" || password.length < 8) {
+      return {
+        type: false,
+        message: "Invalid Password Length Should be 8 or Above",
+      };
     }
     return { type: true };
   };
@@ -56,6 +60,15 @@ export function Signup() {
       }
     } catch (error) {
       console.error(error.message);
+      toast.error(`${error.message}`, {
+        position: "top-right",
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   };
   return (

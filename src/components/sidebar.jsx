@@ -15,15 +15,15 @@ export function Sidebar() {
     dispatch(getAllUsersHandler());
   }, [getUsersApiFlag]);
 
-  const loggedInUser = users.filter(
-    (curr) => curr.username === user.username
+  const loggedInUser = users?.filter(
+    (curr) => curr?.username === user?.username
   )[0];
 
-  const peopleSuggestionsArr = users.filter(
+  const peopleSuggestionsArr = users?.filter(
     (currUser) =>
-      !loggedInUser.following.some(
-        (curr) => curr.username === currUser.username
-      ) && currUser.username !== loggedInUser.username
+      !loggedInUser?.following?.some(
+        (curr) => curr?.username === currUser?.username
+      ) && currUser?.username !== loggedInUser?.username
   );
 
   return (

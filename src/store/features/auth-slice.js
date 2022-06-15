@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
 import { loginService, signupService } from "../../services";
 
 const initialState = {
@@ -43,6 +44,15 @@ const authenticationSlice = createSlice({
       state.user = "";
       localStorage.removeItem("Social_Auth_Token");
       localStorage.removeItem("Social_Auth_User");
+      toast.success(`Logged Out`, {
+        position: "top-right",
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     },
   },
   extraReducers: {
@@ -57,6 +67,15 @@ const authenticationSlice = createSlice({
         "Social_Auth_User",
         JSON.stringify(action.payload.foundUser)
       );
+      toast.success(`Welcome, ${action.payload.foundUser.firstName}`, {
+        position: "top-right",
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     },
     [loginHandler.rejected]: (state, action) => {
       console.error(action.payload);
@@ -72,6 +91,15 @@ const authenticationSlice = createSlice({
         "Social_Auth_User",
         JSON.stringify(action.payload.createdUser)
       );
+      toast.success(`Welcome, ${action.payload.createdUser.firstName}`, {
+        position: "top-right",
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     },
     [signupHandler.rejected]: (state, action) => {
       console.error(action.payload);

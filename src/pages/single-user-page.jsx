@@ -95,7 +95,7 @@ export function SingleUserPage() {
             </a>
             <div className="flex gap-4">
               <div className="flex gap-1">
-                <p className="font-semibold">10</p>
+                <p className="font-semibold">{singleUserPostsArr?.length}</p>
                 <p className="text-slate-500">Posts</p>
               </div>
               <div

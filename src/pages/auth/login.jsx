@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { loginHandler } from "../../store/features/auth-slice";
 
 export function Login() {
@@ -13,9 +14,9 @@ export function Login() {
       username === "" ||
       !/^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/.test(username)
     ) {
-      return { type: false, message: "Invalid User Name" };
+      return { type: false, message: "Invalid User Name Should Contain @" };
     }
-    if (password === "") {
+    if (password === "" || password.length < 8) {
       return { type: false, message: "Invalid Password" };
     }
     return { type: true };
@@ -34,6 +35,15 @@ export function Login() {
       }
     } catch (error) {
       console.error(error.message);
+      toast.error(`${error.message}`, {
+        position: "top-right",
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   };
 
@@ -54,7 +64,7 @@ export function Login() {
           type="email"
           id="email"
           name="email"
-          placeholder="Email Address"
+          placeholder="User Name"
           value={loginInput.email}
           onChange={(event) =>
             setLoginInput((prev) => ({ ...prev, email: event.target.value }))
