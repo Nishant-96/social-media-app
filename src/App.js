@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import Mockman from "mockman-js";
-import { AppWrapper, RequireAuth } from "./components";
+import { AppWrapper, RequireAuth, Toast } from "./components";
 
 import {
   Bookmarks,
@@ -32,6 +32,7 @@ function App() {
   }, [postApiCallStatus]);
   return (
     <div className="flex justify-center md:max-w-[1280px] md:mx-auto">
+      <Toast />
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />

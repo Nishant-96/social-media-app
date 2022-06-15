@@ -37,10 +37,10 @@ export function SinglePostPage() {
   )[0];
 
   const bookmarkStatus = bookmarkPosts
-    .map((curr) => curr._id)
-    .includes(singlePost._id);
-  const likeStatus = singlePost?.likes?.likedBy.some(
-    (curr) => curr.username === user.username
+    ?.map((curr) => curr?._id)
+    ?.includes(singlePost?._id);
+  const likeStatus = singlePost?.likes?.likedBy?.some(
+    (curr) => curr?.username === user?.username
   );
   useEffect(() => {
     dispatch(getPostByIdHandler({ postId: postId }));
@@ -155,6 +155,8 @@ export function SinglePostPage() {
           type="text"
           id="comment"
           name="comment"
+          placeholder="Add a comment..."
+          autoFocus
           value={comment.commentContent}
           onChange={(event) =>
             setComment((prev) => ({
